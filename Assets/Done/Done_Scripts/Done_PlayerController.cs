@@ -20,6 +20,7 @@ public class Done_PlayerController : MonoBehaviour
 	public float fireRate;
 	 
 	private float nextFire;
+	public event Action ShotFired;
 
 	void Start(){
 
@@ -32,6 +33,7 @@ public class Done_PlayerController : MonoBehaviour
 			nextFire = Time.time + fireRate;
 			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
 			GetComponent<AudioSource>().Play ();
+			if(ShotFired != null) ShotFired();
 		}
 	}
 
