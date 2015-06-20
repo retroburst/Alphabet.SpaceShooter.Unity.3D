@@ -21,7 +21,7 @@ public class AddHighscoreController : MonoBehaviour
 
 	void AddHighscoreButtonClick ()
 	{
-		Done_GameController gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<Done_GameController>();
+		GameController gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 		string playerName = PlayerNameField.text;
 		if (string.IsNullOrEmpty (playerName))
 			playerName = "No Name";
@@ -42,7 +42,7 @@ public class AddHighscoreController : MonoBehaviour
 	public void CloseAddHighscorePanel()
 	{
 		Panel.SetActive(false);
-		HighscoresPanel.GetComponent<HighscoresPanel>().UpdateHighscores();
+		HighscoresPanel.GetComponent<HighscoresController>().UpdateHighscores();
 		HighscoresPanel.SetActive(true);
 	}
 	
