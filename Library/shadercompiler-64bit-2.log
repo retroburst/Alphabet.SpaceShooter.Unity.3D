@@ -339,3 +339,6 @@ Cmd: compileSnippet
   api=5 type=1 insize=1934 outsize=6 kw=DIRECTIONAL_COOKIE SHADOWS_SCREEN SHADOWS_NATIVE UNITY_HDR_ON ok=1
 Cmd: compileSnippet
   api=5 type=0 insize=6638 outsize=691 kw= ok=1
+End of pipe
+
+Quitting shader compiler process
