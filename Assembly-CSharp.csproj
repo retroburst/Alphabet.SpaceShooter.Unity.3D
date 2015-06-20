@@ -46,33 +46,26 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Done\Done_Scripts\AddHighscore.cs" />
-     <Compile Include="Assets\Done\Done_Scripts\ConfigurableSettings.cs" />
-     <Compile Include="Assets\Done\Done_Scripts\Done_BGScroller.cs" />
-     <Compile Include="Assets\Done\Done_Scripts\Done_DestroyByBoundary.cs" />
-     <Compile Include="Assets\Done\Done_Scripts\Done_DestroyByContact.cs" />
-     <Compile Include="Assets\Done\Done_Scripts\Done_DestroyByTime.cs" />
-     <Compile Include="Assets\Done\Done_Scripts\Done_EvasiveManeuver.cs" />
-     <Compile Include="Assets\Done\Done_Scripts\Done_GameController.cs" />
-     <Compile Include="Assets\Done\Done_Scripts\Done_Mover.cs" />
-     <Compile Include="Assets\Done\Done_Scripts\Done_MoverTextEnemy.cs" />
-     <Compile Include="Assets\Done\Done_Scripts\Done_PlayerController.cs" />
-     <Compile Include="Assets\Done\Done_Scripts\Done_RandomRotator.cs" />
-     <Compile Include="Assets\Done\Done_Scripts\Done_RandomRotatorTextEnemy.cs" />
-     <Compile Include="Assets\Done\Done_Scripts\Done_WeaponController.cs" />
-     <Compile Include="Assets\Done\Done_Scripts\EnemyType.cs" />
-     <Compile Include="Assets\Done\Done_Scripts\EnemyTypeTag.cs" />
-     <Compile Include="Assets\Done\Done_Scripts\Highscores.cs" />
-     <Compile Include="Assets\Done\Done_Scripts\HighscoresPanel.cs" />
-     <Compile Include="Assets\Done\Done_Scripts\SettingsPanel.cs" />
-     <Compile Include="Assets\Done\Done_Scripts\Statistics.cs" />
-     <Compile Include="Assets\Scripts\BoundaryController.cs" />
-     <Compile Include="Assets\Scripts\DestroyByTime.cs" />
-     <Compile Include="Assets\Scripts\DetsoryByContact.cs" />
-     <Compile Include="Assets\Scripts\GameController.cs" />
-     <Compile Include="Assets\Scripts\Mover.cs" />
-     <Compile Include="Assets\Scripts\PlayerController.cs" />
-     <Compile Include="Assets\Scripts\RandomRotator.cs" />
+     <Compile Include="Assets\Scripts\AddHighscoreController.cs" />
+     <Compile Include="Assets\Scripts\ConfigurableSettings.cs" />
+     <Compile Include="Assets\Scripts\Done_BGScroller.cs" />
+     <Compile Include="Assets\Scripts\Done_DestroyByBoundary.cs" />
+     <Compile Include="Assets\Scripts\Done_DestroyByContact.cs" />
+     <Compile Include="Assets\Scripts\Done_DestroyByTime.cs" />
+     <Compile Include="Assets\Scripts\Done_EvasiveManeuver.cs" />
+     <Compile Include="Assets\Scripts\Done_GameController.cs" />
+     <Compile Include="Assets\Scripts\Done_Mover.cs" />
+     <Compile Include="Assets\Scripts\Done_PlayerController.cs" />
+     <Compile Include="Assets\Scripts\Done_RandomRotator.cs" />
+     <Compile Include="Assets\Scripts\Done_RandomRotatorTextEnemy.cs" />
+     <Compile Include="Assets\Scripts\Done_WeaponController.cs" />
+     <Compile Include="Assets\Scripts\EnemyType.cs" />
+     <Compile Include="Assets\Scripts\EnemyTypeTag.cs" />
+     <Compile Include="Assets\Scripts\Highscores.cs" />
+     <Compile Include="Assets\Scripts\HighscoresPanel.cs" />
+     <Compile Include="Assets\Scripts\MoverTextEnemy.cs" />
+     <Compile Include="Assets\Scripts\SettingsPanel.cs" />
+     <Compile Include="Assets\Scripts\Statistics.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
