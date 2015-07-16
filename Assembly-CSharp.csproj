@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\EnemyType.cs" />
      <Compile Include="Assets\Scripts\EnemyTypeTag.cs" />
      <Compile Include="Assets\Scripts\EvasiveManeuver.cs" />
+     <Compile Include="Assets\Scripts\GameConstants.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\Highscores.cs" />
      <Compile Include="Assets\Scripts\HighscoresController.cs" />

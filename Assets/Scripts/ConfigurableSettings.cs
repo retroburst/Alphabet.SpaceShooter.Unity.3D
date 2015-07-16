@@ -9,4 +9,5 @@ public class ConfigurableSettings : MonoBehaviour {
 	public float WaveWait;
 	public int NumberOfInitialLetters;
 	public int PlayerDestroyedWaitTime;
+	public float WeaponsLockTime;
 }

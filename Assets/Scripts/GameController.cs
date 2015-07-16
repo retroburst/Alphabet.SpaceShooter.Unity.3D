@@ -5,7 +5,6 @@ using System;
 
 public class GameController : MonoBehaviour
 {
-	private const string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	public GameObject[] hazards;
 	public Vector3 spawnValues;
 	public GameObject configurationPrefab;
@@ -15,6 +14,7 @@ public class GameController : MonoBehaviour
 	public GUIText triggerText;
 	public GUIText livesText;
 	public GameObject currentPlayer;
+	public PlayerController currentPlayerController;
 	public GameObject playerPrefab;
 	public SettingsController settingsPanel;
 	public GameObject AddHighscorePanel;
@@ -23,12 +23,14 @@ public class GameController : MonoBehaviour
 	private bool restart;
 	private int livesLeft;
 	private Vector3 defaultPlayerPosition;
-	private int alphabetIndex = 0; //25;
+	private int alphabetIndex = 0;//25;
 	private bool playerDestroyed = false;
 	private char[] alphabet = null;
 	private ConfigurableSettings configurableSettings;
 	private Statistics statistics = null;
-	private const int ENEMY_MAX_SPEED = 6;
+	private const float ENEMY_MAX_SPEED = 5.0f;
+	private bool weaponsLocked = false;
+	private bool notStarted = true;
 	
 	public ConfigurableSettings ConfigurableSettings { get { return configurableSettings; } }
 
@@ -39,21 +41,32 @@ public class GameController : MonoBehaviour
 		statistics = new Statistics ();
 		configurableSettings = Instantiate (configurationPrefab).GetComponent<ConfigurableSettings> ();
 		defaultPlayerPosition = currentPlayer.transform.position;
-		currentPlayer.GetComponent<PlayerController> ().ShotFired += ShotFiredEventHandler;
+		RegisterCurrentPlayer (currentPlayer);
 		livesLeft = ConfigurableSettings.InitialLives;
 		triggerText.text = string.Empty;
-		alphabet = letters.ToCharArray ();
+		alphabet = GameConstants.ALPHABET_LETTERS.ToCharArray ();
 		gameOver = false;
 		restart = false;
 		restartText.text = string.Empty;
-		gameStatusText.text = string.Empty;
 		statistics.Score = 0;
 		UpdateScore ();
+		UpdateLives ();
+		gameStatusText.text = "Press any key to start...";
+	}
+	
+	void StartCoroutinue ()
+	{
 		StartCoroutine (SpawnWaves ());
 	}
 	
 	void Update ()
 	{
+		if (notStarted) {
+			if (Input.anyKeyDown) {
+				notStarted = false;
+				StartCoroutinue ();
+			}
+		}
 		if (Input.GetButtonDown ("Restart"))
 			Application.LoadLevel (Application.loadedLevel);
 		if (Input.GetButtonDown ("Highscores")) {
@@ -77,7 +90,7 @@ public class GameController : MonoBehaviour
 	private IEnumerator SpawnWaves ()
 	{
 		UpdateLives ();
-		currentPlayer.GetComponent<PlayerController> ().trigger = alphabet [alphabetIndex].ToString ();
+		currentPlayerController.trigger = alphabet [alphabetIndex].ToString ();
 		UpdateTriggerText (alphabet [alphabetIndex]);
 		ShowTriggerText ();
 		yield return new WaitForSeconds (ConfigurableSettings.StartWait);
@@ -85,7 +98,7 @@ public class GameController : MonoBehaviour
 		while (true) {
 			// game won
 			if (alphabetIndex == alphabet.Length) {
-				gameStatusText.text = string.Format ("You Win!! Your score is {0}.", statistics.Score);
+				gameStatusText.text = string.Format ("You Win!! Your score is {0}.\nYour accuracy was {1}%", statistics.Score, CalculateAccuracy ());
 				yield return new WaitForSeconds (2);
 				AddHighscorePanel.SetActive (true);
 				restartText.text = "Press 'Esc' for Restart";
@@ -102,10 +115,16 @@ public class GameController : MonoBehaviour
 					gameStatusText.text = string.Format ("You were destroyed.\nTrigger is still '{0}'.\nPlease wait...", alphabet [alphabetIndex]);
 					yield return new WaitForSeconds (ConfigurableSettings.PlayerDestroyedWaitTime);
 					gameStatusText.text = string.Empty;
-					currentPlayer = (GameObject)Instantiate (playerPrefab, defaultPlayerPosition, Quaternion.identity);
-					currentPlayer.GetComponent<PlayerController> ().trigger = alphabet [alphabetIndex].ToString ();
-					currentPlayer.GetComponent<PlayerController> ().ShotFired += ShotFiredEventHandler;
+					RegisterCurrentPlayer ((GameObject)Instantiate (playerPrefab, defaultPlayerPosition, Quaternion.identity));
 					playerDestroyed = false;
+					currentPlayerController.trigger = alphabet [alphabetIndex].ToString ();
+					UpdateTriggerText (alphabet [alphabetIndex]);
+					continue;
+				}
+				if (weaponsLocked) {
+					gameStatusText.text = string.Format ("Oh no, WRONG trigger!\nWeapons system locked.\nWait for unlock...", alphabet [alphabetIndex]);
+					yield return new WaitForSeconds (ConfigurableSettings.WeaponsLockTime);
+					gameStatusText.text = string.Empty;
 					continue;
 				}
 
@@ -126,13 +145,20 @@ public class GameController : MonoBehaviour
 					textMesh.text = string.Format ("{0}", alphabet [alphabetIndex]);
 				}
 
+				if (weaponsLocked) {
+					gameStatusText.text = string.Format ("Oh no, WRONG trigger!\nWeapons system locked.\nWait for unlock...", alphabet [alphabetIndex]);
+					yield return new WaitForSeconds (ConfigurableSettings.WeaponsLockTime);
+					gameStatusText.text = string.Empty;
+					continue;
+				}
+
 				yield return new WaitForSeconds (ConfigurableSettings.SpawnWait);
 			}
 			if (!gameOver) {
 				alphabetIndex++;
 				if (alphabetIndex < alphabet.Length) {
 					if (currentPlayer != null)
-						currentPlayer.GetComponent<PlayerController> ().trigger = alphabet [alphabetIndex].ToString ();
+						currentPlayerController.trigger = alphabet [alphabetIndex].ToString ();
 					UpdateTriggerText (alphabet [alphabetIndex]);
 					ShowTriggerText ();
 				}
@@ -145,7 +171,17 @@ public class GameController : MonoBehaviour
 			}
 		}
 	}
-	
+
+	private string CalculateAccuracy ()
+	{
+		decimal result = 0.00m;
+		if (statistics.ShotsFired > 0) {
+			int targetsHit = statistics.EnemyAsteroidsDestroyed + statistics.EnemyShipsDestroyed + statistics.EnemyTextsDestroyed;
+			result = ((decimal)targetsHit) / ((decimal)statistics.ShotsFired) * 100.00m;
+		}
+		return(result.ToString ("n2"));
+	}
+
 	void SetSpeed (GameObject newHazard, GameObject prefab, int alphabetIndex)
 	{ 
 		if (prefab == hazards [hazards.Length - 1]) {
@@ -166,6 +202,15 @@ public class GameController : MonoBehaviour
 	void UpdateTriggerText (char ch)
 	{
 		triggerText.text = string.Format ("Trigger ['{0}']", ch);
+	}
+
+	private void RegisterCurrentPlayer (GameObject player)
+	{
+		currentPlayer = player;
+		currentPlayerController = currentPlayer.GetComponent<PlayerController> ();
+		currentPlayerController.ShotFired += ShotFiredEventHandler;
+		currentPlayerController.WeaponsLocked += WeaponsLockedHandler;
+		currentPlayerController.WeaponsUnlocked += WeaponsUnlockedHandler;
 	}
 	
 	private void AddScore (int newScoreValue)
@@ -229,6 +274,13 @@ public class GameController : MonoBehaviour
 		dbc.EnemyDestroyed += EnemyDestroyed;
 	}
 
+	private void WeaponsLockedHandler ()
+	{
+		weaponsLocked = true;
+	}
 
-
+	private void WeaponsUnlockedHandler ()
+	{
+		weaponsLocked = false;
+	}
 }

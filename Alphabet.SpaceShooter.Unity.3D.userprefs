@@ -2,35 +2,11 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameController.cs">
     <Files>
-      <File FileName="Assets/Scripts/GameController.cs" Line="24" Column="24" />
-      <File FileName="Assets/Scripts/AddHighscoreController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MoverTextEnemy.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/BackgroundScroller.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/PlayerController.cs" Line="54" Column="29" />
       <File FileName="Assets/Scripts/ConfigurableSettings.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/DestroyByBoundary.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/DestroyByContact.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/DestroyByTime.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/EnemyType.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/EnemyTypeTag.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/EvasiveManeuver.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/PlayerController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Highscores.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/SettingsController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/WeaponController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Statistics.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/RandomRotatorTextEnemy.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/RandomRotator.cs" Line="4" Column="27" />
-      <File FileName="Assets/Scripts/Mover.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/HighscoresController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/GameController.cs" Line="26" Column="32" />
+      <File FileName="Assets/Scripts/GameConstants.cs" Line="1" Column="1" />
     </Files>
-    <Pads>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State>
-          <Value>GetComponent&lt;Rigidbody&gt;()</Value>
-          <Value>mover.speed</Value>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
