@@ -7,7 +7,7 @@ using System.Collections;
 public class DestroyByBoundary : MonoBehaviour
 {
 	/// <summary>
-	/// Raises the trigger exit event.
+	/// Handles the trigger exit event.
 	/// </summary>
 	/// <param name="other">Other.</param>
 	private void OnTriggerExit (Collider other)
