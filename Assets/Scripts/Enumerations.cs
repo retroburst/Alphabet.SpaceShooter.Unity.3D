@@ -1,3 +1,6 @@
+/// <summary>
+/// Enemy type.
+/// </summary>
 public enum EnemyType
 {
 	Ship,
@@ -5,5 +8,3 @@ public enum EnemyType
 	Text,
 	Bolt
 }
-
-

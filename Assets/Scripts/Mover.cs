@@ -1,12 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Moves game objects with rigid bodies.
+/// </summary>
 public class Mover : MonoBehaviour
 {
 	public float speed;
-
-	void Start ()
+	
+	/// <summary>
+	/// Start this instance.
+	/// </summary>
+	private void Start ()
 	{
 		GetComponent<Rigidbody>().velocity = transform.forward * speed;
 	}
+	
 }

@@ -1,10 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Destroy by boundary.
+/// </summary>
 public class DestroyByBoundary : MonoBehaviour
 {
-	void OnTriggerExit (Collider other) 
+	/// <summary>
+	/// Raises the trigger exit event.
+	/// </summary>
+	/// <param name="other">Other.</param>
+	private void OnTriggerExit (Collider other)
 	{
-		Destroy(other.gameObject);
+		Destroy (other.gameObject);
 	}
 }

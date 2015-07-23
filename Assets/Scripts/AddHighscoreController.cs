@@ -3,6 +3,10 @@ using UnityEngine.UI;
 using System.Collections;
 using System;
 
+/// <summary>
+/// Add highscore controller.
+/// Resposible for adding and processing new high scores.
+/// </summary>
 public class AddHighscoreController : MonoBehaviour
 {
 	public GameObject Panel;
@@ -10,23 +14,29 @@ public class AddHighscoreController : MonoBehaviour
 	public Button AddHighscoreButton;
 	public Button CloseButton;
 	public GameObject HighscoresPanel;
-
-	// Use this for initialization
-	void Start ()
+	
+	/// <summary>
+	/// Start this instance.
+	/// </summary>
+	private void Start ()
 	{
 		AddHighscoreButton.onClick.AddListener (AddHighscoreButtonClick);
-		CloseButton.onClick.AddListener(CloseAddHighscorePanel);
-		PlayerNameField.ActivateInputField();
+		CloseButton.onClick.AddListener (CloseAddHighscorePanel);
+		PlayerNameField.ActivateInputField ();
 	}
-
-	void AddHighscoreButtonClick ()
+	
+	/// <summary>
+	/// Add highscore button click handler.
+	/// </summary>
+	private void AddHighscoreButtonClick ()
 	{
-		GameController gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+		GameController gameController = GameObject.FindGameObjectWithTag (Constants.TAG_GAME_CONTROLLER).GetComponent<GameController> ();
 		string playerName = PlayerNameField.text;
-		if (string.IsNullOrEmpty (playerName))
+		if (string.IsNullOrEmpty (playerName)) {
 			playerName = "No Name";
-		Highscores scores = Highscores.DeserializeHighscores();
-		HighscoreEntry entry = new HighscoreEntry();
+		}
+		Highscores scores = Highscores.DeserializeHighscores ();
+		HighscoreEntry entry = new HighscoreEntry ();
 		entry.Score = gameController.Statistics.Score;
 		entry.PlayerName = playerName;
 		entry.HighscoreDate = DateTime.Now;
@@ -34,16 +44,19 @@ public class AddHighscoreController : MonoBehaviour
 		entry.TextEnemiesDestroyed = gameController.Statistics.EnemyTextsDestroyed;
 		entry.EnemyAsteroidsDestroyed = gameController.Statistics.EnemyAsteroidsDestroyed;
 		entry.EnemyShipsDestroyed = gameController.Statistics.EnemyShipsDestroyed;
-		scores.Entries.Add(entry);
-		Highscores.SerializeHighscores(scores);
-		CloseAddHighscorePanel();
+		scores.Entries.Add (entry);
+		Highscores.SerializeHighscores (scores);
+		CloseAddHighscorePanel ();
 	}
-
-	public void CloseAddHighscorePanel()
+	
+	/// <summary>
+	/// Closes the add highscore panel.
+	/// </summary>
+	public void CloseAddHighscorePanel ()
 	{
-		Panel.SetActive(false);
-		HighscoresPanel.GetComponent<HighscoresController>().UpdateHighscores();
-		HighscoresPanel.SetActive(true);
+		Panel.SetActive (false);
+		HighscoresPanel.GetComponent<HighscoresController> ().UpdateHighscores ();
+		HighscoresPanel.SetActive (true);
 	}
 	
 }
